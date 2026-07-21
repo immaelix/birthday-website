@@ -80,17 +80,48 @@
 
 
       <section id="surprise" class="screen" data-screen="surprise" hidden>
-
-        <h2 id="surprise-title">For you</h2>
-
+        <h2 id="surprise-title">Okay… now</h2>
         <p class="section-lead section-lead--spicy" id="surprise-lead"></p>
-
         <video id="surprise-video" class="surprise-video" playsinline muted loop hidden>
-
           <source src="assets/videos/surprise.mp4" type="video/mp4" />
-
         </video>
+        <button type="button" class="btn-continue" id="to-cake" style="margin-top: 2rem;">Time for cake?</button>
+      </section>
 
+      <section id="cake" class="screen" data-screen="cake" hidden>
+        <h2>Happy Birthday, My Love! 🎂</h2>
+        <p class="section-lead" style="margin-bottom: 2rem;">Make a wish and cut the cake!</p>
+        <div id="cake-container" class="cake-container">
+          <div id="cake" class="cake">
+            <div class="cake-layer cake-layer--1"></div>
+            <div class="cake-layer cake-layer--2"></div>
+            <div class="cake-layer cake-layer--3"></div>
+            <div class="cake-top">
+              <div class="candle">
+                <div class="flame" id="flame"></div>
+              </div>
+              <div class="candle"></div>
+              <div class="candle">
+                <div class="flame" id="flame2"></div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn-cut-cake" id="cut-cake">Cut the Cake 🎉</button>
+        </div>
+        <div id="confetti-container" class="confetti-container" aria-hidden="true"></div>
+        <button type="button" class="btn-continue" id="to-letter" style="margin-top: 2rem; display: none;">Read your letter ❤️</button>
+      </section>
+
+      <section id="letter" class="screen" data-screen="letter" hidden>
+        <div class="letter-container">
+          <div class="letter-paper">
+            <div class="letter-header">For My Love,</div>
+            <div class="letter-body" id="letter-body">
+              <span id="typing-text"></span><span class="cursor">|</span>
+            </div>
+            <div class="letter-footer">Forever yours,</div>
+          </div>
+        </div>
       </section>
 
     </main>

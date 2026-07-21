@@ -134,28 +134,26 @@ const INTROS = {
 
 const INTRO_ACTIVE = 6;
 
-
-
 const COPY = {
-
   memoriesLead: "Some of my favorite proof that you're real.",
-
   surpriseTitle: "Okay… now",
-
   surpriseLead: "You knew we weren't stopping at cute.",
-
 };
 
-
+// Customize your letter here!
+const LETTER_CONTENT = `
+Only spicy and intense stuff here... 😏
+I love you more than words can say,
+and I can't wait to spend more birthdays with you.
+You're my everything, my love.
+`;
 
 const THEME_BY_SCREEN = {
-
   intro: "calm",
-
   memories: "warm",
-
   surprise: "spicy",
-
+  cake: "spicy",
+  letter: "spicy"
 };
 
 
@@ -404,6 +402,83 @@ function checkIntroBackground() {
   // If image fails to load, do nothing - the design stays as is
 }
 
+function launchConfetti() {
+  const container = document.getElementById("confetti-container");
+  if (!container) return;
+
+  const colors = ["#ff6b9d", "#ff3d7f", "#ffd700", "#ff8c00", "#ff69b4"];
+  const confettiCount = 150;
+
+  for (let i = 0; i < confettiCount; i++) {
+    const confetti = document.createElement("div");
+    confetti.className = "confetti";
+    confetti.style.left = `${Math.random() * 100}%`;
+    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.animationDelay = `${Math.random() * 2}s`;
+    confetti.style.animationDuration = `${2 + Math.random() * 2}s`;
+    container.appendChild(confetti);
+
+    setTimeout(() => confetti.remove(), 5000);
+  }
+}
+
+function cutCake() {
+  const cake = document.getElementById("cake");
+  const cutBtn = document.getElementById("cut-cake");
+  const toLetterBtn = document.getElementById("to-letter");
+
+  if (cake && cutBtn) {
+    cake.classList.add("cut");
+    cutBtn.style.display = "none";
+    launchConfetti();
+    setTimeout(() => {
+      if (toLetterBtn) toLetterBtn.style.display = "inline-block";
+    }, 1000);
+  }
+}
+
+function typeLetter() {
+  const typingText = document.getElementById("typing-text");
+  if (!typingText) return;
+
+  const text = LETTER_CONTENT.trim();
+  let index = 0;
+
+  typingText.textContent = "";
+
+  function type() {
+    if (index < text.length) {
+      typingText.textContent += text.charAt(index);
+      index++;
+      setTimeout(type, 50); // Typing speed
+    }
+  }
+
+  type();
+}
+
+function initCakeButton() {
+  const cutBtn = document.getElementById("cut-cake");
+  if (cutBtn) {
+    cutBtn.addEventListener("click", cutCake);
+  }
+}
+
+function initNavigation() {
+  const toCakeBtn = document.getElementById("to-cake");
+  if (toCakeBtn) {
+    toCakeBtn.addEventListener("click", () => showScreen("cake"));
+  }
+
+  const toLetterBtn = document.getElementById("to-letter");
+  if (toLetterBtn) {
+    toLetterBtn.addEventListener("click", () => {
+      showScreen("letter");
+      setTimeout(typeLetter, 500);
+    });
+  }
+}
+
 setTheme("calm");
 checkIntroBackground();
 applyIntro();
@@ -412,5 +487,7 @@ initGallery();
 initStickers();
 initIntro();
 initContinue();
+initCakeButton();
+initNavigation();
 
 
