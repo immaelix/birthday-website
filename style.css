@@ -839,46 +839,70 @@ body[data-theme="spicy"] .btn-continue {
 
 
 
-.gallery {
-
-  display: grid;
-
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 1rem;
-
-  max-width: 900px;
-
+  max-width: 100%;
   width: 100%;
-
 }
 
+.carousel {
+  display: flex;
+  overflow: hidden;
+  width: min(80vw, 400px);
+  height: min(80vw, 400px);
+  border-radius: 50%;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
 
-
-.gallery img {
-
-  width: 100%;
-
-  aspect-ratio: 1;
-
+.carousel img {
+  min-width: 100%;
+  height: 100%;
   object-fit: cover;
-
-  border-radius: 12px;
-
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-
-  transition: transform var(--duration) var(--ease-smooth), box-shadow var(--duration) var(--ease-smooth);
-
+  transition: transform 0.5s ease-in-out;
 }
 
+.carousel-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 10;
+}
 
+.carousel-btn:hover {
+  background: var(--accent-soft);
+  transform: scale(1.1);
+}
 
-.gallery img:hover {
+.carousel-dots {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
 
-  transform: scale(1.03) rotate(-1deg);
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-  box-shadow: 0 12px 40px var(--accent-soft);
-
+.carousel-dot.active {
+  background: var(--accent);
+  transform: scale(1.2);
 }
 
 

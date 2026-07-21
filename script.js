@@ -7,9 +7,14 @@
 
 
 const PHOTO_FILES = [
-
-  // "photo-01.jpg",
-
+  "IMG-20260103-WA0361.jpg",
+  "IMG-20260103-WA0373.jpg",
+  "IMG-20260103-WA0381.jpg",
+  "IMG-20260103-WA0409.jpg",
+  "IMG-20260304-WA0023.jpg",
+  "IMG-20260719-WA0012.jpg",
+  "IMG-20260719-WA0051.jpg",
+  "IMG-20260719-WA0052.jpg",
 ];
 
 
@@ -260,26 +265,57 @@ function initMusic() {
 
 
 
-function initGallery() {
+let currentSlide = 0;
 
+function initGallery() {
   if (!gallery || PHOTO_FILES.length === 0) return;
 
-
-
+  // Add images to carousel
   PHOTO_FILES.forEach((name, i) => {
-
     const img = document.createElement("img");
-
     img.src = `assets/images/${name}`;
-
     img.alt = `Memory ${i + 1}`;
-
     img.loading = i < 4 ? "eager" : "lazy";
-
     gallery.appendChild(img);
-
   });
 
+  // Add dots
+  const dotsContainer = document.getElementById("carouselDots");
+  PHOTO_FILES.forEach((_, i) => {
+    const dot = document.createElement("div");
+    dot.className = "carousel-dot";
+    if (i === 0) dot.classList.add("active");
+    dot.addEventListener("click", () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  // Add button listeners
+  document.getElementById("carouselPrev").addEventListener("click", prevSlide);
+  document.getElementById("carouselNext").addEventListener("click", nextSlide);
+}
+
+function updateCarousel() {
+  const galleryEl = document.getElementById("gallery");
+  const dots = document.querySelectorAll(".carousel-dot");
+  galleryEl.style.transform = `translateX(-${currentSlide * 100}%)`;
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === currentSlide);
+  });
+}
+
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % PHOTO_FILES.length;
+  updateCarousel();
+}
+
+function prevSlide() {
+  currentSlide = (currentSlide - 1 + PHOTO_FILES.length) % PHOTO_FILES.length;
+  updateCarousel();
+}
+
+function goToSlide(index) {
+  currentSlide = index;
+  updateCarousel();
 }
 
 
