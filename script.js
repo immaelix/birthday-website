@@ -422,13 +422,30 @@ function launchConfetti() {
   }
 }
 
+function initCandles() {
+  const candles = document.querySelectorAll(".candle");
+  const cutBtn = document.getElementById("cut-cake");
+  
+  candles.forEach(candle => {
+    candle.addEventListener("click", () => {
+      candle.dataset.lit = "false";
+      checkAllCandlesBlown();
+    });
+  });
+  
+  function checkAllCandlesBlown() {
+    const allBlown = Array.from(candles).every(c => c.dataset.lit === "false");
+    if (allBlown && cutBtn) {
+      cutBtn.style.display = "inline-block";
+    }
+  }
+}
+
 function cutCake() {
-  const cake = document.getElementById("cake");
   const cutBtn = document.getElementById("cut-cake");
   const toLetterBtn = document.getElementById("to-letter");
 
-  if (cake && cutBtn) {
-    cake.classList.add("cut");
+  if (cutBtn) {
     cutBtn.style.display = "none";
     launchConfetti();
     setTimeout(() => {
@@ -487,6 +504,7 @@ initGallery();
 initStickers();
 initIntro();
 initContinue();
+initCandles();
 initCakeButton();
 initNavigation();
 

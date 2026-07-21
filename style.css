@@ -971,66 +971,52 @@ body[data-theme="calm"] .stickers-layer {
 
 .cake {
   position: relative;
-  width: 220px;
-  height: 200px;
+  width: min(90vw, 400px);
+  height: auto;
 }
 
-.cake-layer {
+.cake-img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+}
+
+.candles-container {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-.cake-layer--1 {
-  bottom: 0;
-  width: 200px;
-  height: 60px;
-  background: linear-gradient(to bottom, #f8d7da, #e8a0a5);
-}
-
-.cake-layer--2 {
-  bottom: 55px;
-  width: 160px;
-  height: 55px;
-  background: linear-gradient(to bottom, #f3b7b9, #e07a7f);
-}
-
-.cake-layer--3 {
-  bottom: 105px;
-  width: 120px;
-  height: 50px;
-  background: linear-gradient(to bottom, #ed969a, #d6575d);
-}
-
-.cake-top {
-  position: absolute;
-  bottom: 150px;
+  top: 10%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 20px;
+  gap: 30px;
+  z-index: 10;
 }
 
 .candle {
-  width: 10px;
-  height: 40px;
+  width: 12px;
+  height: 50px;
   background: linear-gradient(to bottom, #fff, #e0e0e0);
   border-radius: 4px 4px 0 0;
   position: relative;
+  cursor: pointer;
 }
 
 .flame {
   position: absolute;
-  top: -20px;
+  top: -24px;
   left: 50%;
   transform: translateX(-50%);
-  width: 16px;
-  height: 24px;
+  width: 20px;
+  height: 28px;
   background: radial-gradient(circle at 30% 30%, #fff, #ffd700, #ff8c00, transparent);
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
   animation: flicker 0.5s ease-in-out infinite alternate;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.candle[data-lit="false"] .flame {
+  opacity: 0;
+  transform: translateX(-50%) scale(0);
 }
 
 @keyframes flicker {
@@ -1054,31 +1040,6 @@ body[data-theme="calm"] .stickers-layer {
 .btn-cut-cake:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 36px rgba(255, 61, 127, 0.5);
-}
-
-.cake.cut .cake-layer {
-  transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.cake.cut .cake-layer--1 {
-  transform: translateX(-80%) rotate(-5deg);
-}
-
-.cake.cut .cake-layer--2 {
-  transform: translateX(-20%) rotate(3deg);
-}
-
-.cake.cut .cake-layer--3 {
-  transform: translateX(40%) rotate(-2deg);
-}
-
-.cake.cut .flame {
-  animation: blow-out 0.5s ease-out forwards;
-}
-
-@keyframes blow-out {
-  0% { opacity: 1; transform: translateX(-50%) scale(1); }
-  100% { opacity: 0; transform: translateX(-50%) scale(0); }
 }
 
 /* Confetti Styles */
