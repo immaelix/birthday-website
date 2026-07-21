@@ -325,35 +325,30 @@ function initStickers() {
 
 
 function showScreen(id, options = {}) {
-
   const { viaTension = false } = options;
 
-
-
   document.querySelectorAll(".screen").forEach((section) => {
-
     const active = section.id === id;
-
     section.hidden = !active;
-
     section.classList.toggle("screen--active", active);
-
   });
 
-
-
-  if (viaTension) {
-
-    setTheme("tension");
-
-    window.setTimeout(() => setTheme(THEME_BY_SCREEN[id] || "calm"), 900);
-
-  } else {
-
-    setTheme(THEME_BY_SCREEN[id] || "calm");
-
+  // Handle surprise video
+  const surpriseVideo = document.getElementById("surprise-video");
+  if (id === "surprise" && surpriseVideo) {
+    surpriseVideo.hidden = false;
+    // Try to play the video (might require user gesture, which we have since they tapped)
+    surpriseVideo.play().catch(() => {
+      // If play fails, just show it
+    });
   }
 
+  if (viaTension) {
+    setTheme("tension");
+    window.setTimeout(() => setTheme(THEME_BY_SCREEN[id] || "calm"), 900);
+  } else {
+    setTheme(THEME_BY_SCREEN[id] || "calm");
+  }
 }
 
 
