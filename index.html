@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Happy Birthday ❤️</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+  </head>
+
+  <body data-theme="calm">
+
+    <div class="theme-bg" aria-hidden="true">
+      <span class="theme-orb theme-orb--1"></span>
+      <span class="theme-orb theme-orb--2"></span>
+      <span class="theme-orb theme-orb--3"></span>
+      <div class="theme-grain"></div>
+    </div>
+
+    <div class="theme-vignette" aria-hidden="true"></div>
+
+
+
+    <audio id="bg-music" loop preload="auto">
+
+      <source src="assets/audio/our-song.mp3" type="audio/mpeg" />
+
+      <source src="assets/audio/our-song.ogg" type="audio/ogg" />
+
+    </audio>
+
+
+
+    <button type="button" id="music-toggle" class="music-toggle" aria-label="Play or pause music">
+
+      ♪
+
+    </button>
+
+
+
+    <main id="app">
+
+      <section id="intro" class="screen screen--active" data-screen="intro">
+
+        <p class="intro-eyebrow" id="intro-eyebrow"></p>
+
+        <h1 id="intro-title">Happy Birthday</h1>
+
+        <p class="subtitle" id="intro-subtitle">Tap to begin…</p>
+
+        <p class="intro-hint" id="intro-hint"></p>
+
+      </section>
+
+
+
+      <section id="memories" class="screen" data-screen="memories" hidden>
+
+        <h2>Us</h2>
+
+        <p class="section-lead" id="memories-lead"></p>
+
+        <div class="gallery" id="gallery"></div>
+
+        <button type="button" class="btn-continue" id="to-surprise">Keep going…</button>
+
+      </section>
+
+
+
+      <div class="stickers-layer" id="stickers" aria-hidden="true"></div>
+
+
+
+      <section id="surprise" class="screen" data-screen="surprise" hidden>
+
+        <h2 id="surprise-title">For you</h2>
+
+        <p class="section-lead section-lead--spicy" id="surprise-lead"></p>
+
+        <video id="surprise-video" class="surprise-video" playsinline muted loop hidden>
+
+          <source src="assets/videos/surprise.mp4" type="video/mp4" />
+
+        </video>
+
+      </section>
+
+    </main>
+
+
+
+    <script src="script.js"></script>
+
+  </body>
+
+</html>
+
+
