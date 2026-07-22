@@ -1,147 +1,97 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
-  <head>
-
+<head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Happy Birthday ❤️</title>
-
     <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="main-container">
+        <!-- Background -->
+        <div class="background-layer">
+            <img src="assets/images/background.jpg" alt="Red crumpled paper background" class="bg-image" />
+        </div>
 
-  </head>
+        <!-- Top Widgets -->
+        <div class="top-widgets">
+            <div class="youtube-widget-small">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dFMu3ulTd-w?si=AEfdby28bnfcxKgE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="spotify-widget-small">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7uv632EkfwYhXoqf8rhYrg?utm_source=generator&theme=0" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+        </div>
 
-  <body data-theme="calm">
+        <!-- Letter Cards -->
+        <div class="letter-cards-container">
+            <div class="letter-card letter-card-a" data-letter="A">
+                <img src="assets/images/ALETTER.png" alt="Letter A" class="letter-img" />
+            </div>
+            <div class="letter-card letter-card-b" data-letter="B">
+                <img src="assets/images/B-LETTER.png" alt="Letter B" class="letter-img" />
+            </div>
+            <div class="letter-card letter-card-c" data-letter="C">
+                <img src="assets/images/C-LETTER.png" alt="Letter C" class="letter-img" />
+            </div>
+            <div class="letter-card letter-card-d" data-letter="D">
+                <img src="assets/images/D-LETER.png" alt="Letter D" class="letter-img" />
+            </div>
+            <div class="letter-card letter-card-e" data-letter="E">
+                <img src="assets/images/E-LETTER.png" alt="Letter E" class="letter-img" />
+            </div>
+        </div>
 
-    <div class="theme-bg" aria-hidden="true">
-      <span class="theme-orb theme-orb--1"></span>
-      <span class="theme-orb theme-orb--2"></span>
-      <span class="theme-orb theme-orb--3"></span>
-      <div class="theme-grain"></div>
+        <!-- Decorative Elements -->
+        <div class="decorative-layer">
+            <img src="assets/images/star-image.png" alt="Leopard print star" class="star star-1" />
+            <img src="assets/images/star-image.png" alt="Leopard print star" class="star star-2" />
+            <img src="assets/images/star-image.png" alt="Leopard print star" class="star star-3" />
+            
+            <img src="assets/images/bouquet1.png" alt="Bouquet" class="bouquet" />
+            
+            <img src="assets/images/ENVELOPE.png" alt="Envelope" class="envelope" />
+            
+            <img src="assets/images/cat-image.png" alt="Cats" class="cats" />
+            
+            <img src="assets/images/iloveyou-image.png" alt="I love you" class="iloveyou-text" />
+            
+            <div class="from-text">
+                <p>From: Someone</p>
+                <p>For you</p>
+            </div>
+        </div>
+
+        <!-- Bottom Widgets -->
+        <div class="bottom-widgets">
+            <div class="voice-note-player">
+                <button class="play-btn" id="voice-play-btn">▶</button>
+                <div class="voice-info">
+                    <p class="voice-title">Voice note</p>
+                    <p class="voice-subtitle">tap to listen</p>
+                </div>
+                <div class="waveform">
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <span class="voice-duration">0:18</span>
+            </div>
+        </div>
+
+        <!-- Letter Modal -->
+        <div class="letter-modal" id="letter-modal" hidden>
+            <div class="modal-content">
+                <button class="close-modal" id="close-modal">×</button>
+                <div class="modal-text" id="modal-text"></div>
+            </div>
+        </div>
     </div>
 
-    <div class="theme-vignette" aria-hidden="true"></div>
-
-
-
-    <audio id="bg-music" loop preload="auto">
-
-      <source src="assets/audio/our-song.mp3" type="audio/mpeg" />
-
-      <source src="assets/audio/our-song.ogg" type="audio/ogg" />
-
+    <!-- Audio for voice note -->
+    <audio id="voice-note" preload="auto">
+        <source src="assets/audio/voice-note.mp3" type="audio/mpeg" />
     </audio>
 
-
-
-    <button type="button" id="music-toggle" class="music-toggle" aria-label="Play or pause music">
-
-      ♪
-
-    </button>
-
-
-
-    <main id="app">
-
-      <section id="intro" class="screen screen--active" data-screen="intro">
-
-        <p class="intro-eyebrow" id="intro-eyebrow"></p>
-
-        <h1 id="intro-title">Happy Birthday</h1>
-
-        <p class="subtitle" id="intro-subtitle">Tap to begin…</p>
-
-        <p class="intro-hint" id="intro-hint"></p>
-
-      </section>
-
-
-
-      <section id="memories" class="screen" data-screen="memories" hidden>
-        <h2>Us</h2>
-        <p class="section-lead" id="memories-lead"></p>
-        <div class="carousel-3d-container">
-          <div class="carousel-3d" id="gallery"></div>
-        </div>
-        <div class="spotify-widget">
-          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7uv632EkfwYhXoqf8rhYrg?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>
-        <button type="button" class="btn-continue" id="to-surprise">Keep going…</button>
-      </section>
-
-
-
-      <div class="stickers-layer" id="stickers" aria-hidden="true"></div>
-
-
-
-      <section id="surprise" class="screen" data-screen="surprise" hidden>
-        <h2 id="surprise-title">Okay… now</h2>
-        <p class="section-lead section-lead--spicy" id="surprise-lead"></p>
-        <div class="youtube-widget">
-          <iframe width="100%" height="315" src="https://www.youtube.com/embed/dFMu3ulTd-w?si=AEfdby28bnfcxKgE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
-        <video id="surprise-video" class="surprise-video" playsinline muted loop hidden>
-          <source src="assets/videos/surprise.mp4" type="video/mp4" />
-        </video>
-        <button type="button" class="btn-continue" id="to-cake" style="margin-top: 2rem;">Time for cake?</button>
-      </section>
-
-      <section id="cake" class="screen" data-screen="cake" hidden>
-        <h2>Happy Birthday, My Love! 🎂</h2>
-        <p class="section-lead" style="margin-bottom: 2rem;">Make a wish and blow out the candles!</p>
-        <div id="cake-container" class="cake-container">
-          <div id="cake" class="cake">
-            <img id="cake-img" src="assets/images/cake.jpg" alt="Birthday Cake" class="cake-img" onerror="this.style.display='none'">
-            <div id="candles-container" class="candles-container">
-              <div class="candle" data-lit="false">
-                <div class="flame"></div>
-              </div>
-              <div class="candle" data-lit="false">
-                <div class="flame"></div>
-              </div>
-              <div class="candle" data-lit="false">
-                <div class="flame"></div>
-              </div>
-            </div>
-            <div class="flowers-container">
-              <div class="flower flower-1">🌸</div>
-              <div class="flower flower-2">🌺</div>
-              <div class="flower flower-3">🌷</div>
-              <div class="flower flower-4">🌹</div>
-              <div class="flower flower-5">💐</div>
-            </div>
-          </div>
-          <button type="button" class="btn-cut-cake" id="cut-cake" style="display: none;">Cut the Cake 🎉</button>
-        </div>
-        <div id="confetti-container" class="confetti-container" aria-hidden="true"></div>
-        <button type="button" class="btn-continue" id="to-letter" style="margin-top: 2rem; display: none;">Read your letter ❤️</button>
-      </section>
-
-      <section id="letter" class="screen" data-screen="letter" hidden>
-        <div class="letter-container">
-          <div class="letter-paper">
-            <div class="letter-header">For My Love,</div>
-            <div class="letter-body" id="letter-body">
-              <span id="typing-text"></span><span class="cursor">|</span>
-            </div>
-            <div class="letter-footer">Forever yours,</div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-
-
     <script src="script.js"></script>
-
-  </body>
-
+</body>
 </html>
-
-
