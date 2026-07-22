@@ -15,6 +15,10 @@ const PHOTO_FILES = [
   "IMG-20260719-WA0012.jpg",
   "IMG-20260719-WA0051.jpg",
   "IMG-20260719-WA0052.jpg",
+  "1968495937213137.jpg",
+  "Screenshot_20251127_163725_com.roblox.client.jpg",
+  "Snapchat-1414954007.jpg",
+  "WhatsApp Image 2026-07-20 at 6.50.58 PM.jpeg",
 ];
 
 
