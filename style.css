@@ -717,28 +717,7 @@ h2 {
 
 
 #intro {
-  position: relative;
   cursor: pointer;
-  overflow: hidden;
-}
-
-#intro::before {
-  content: "";
-  position: absolute;
-  inset: -20px; /* Slightly larger to cover edge blur */
-  background-image: url("assets/images/bg-intro.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  filter: blur(12px) brightness(0.9); /* Blur and dim the image */
-  opacity: 0; /* Hidden by default in case image is missing */
-  transition: opacity 0.65s ease;
-  z-index: -1;
-}
-
-/* Show background image when it's actually loaded (optional) */
-#intro.has-bg::before {
-  opacity: 1;
 }
 
 
@@ -847,6 +826,7 @@ body[data-theme="spicy"] .btn-continue {
   gap: 1rem;
   max-width: 100%;
   width: 100%;
+  perspective: 1000px;
 }
 
 .carousel {
@@ -855,15 +835,18 @@ body[data-theme="spicy"] .btn-continue {
   width: min(80vw, 400px);
   height: min(80vw, 400px);
   border-radius: 50%;
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3), 
+              0 0 0 8px var(--accent-soft);
   position: relative;
+  transform-style: preserve-3d;
 }
 
 .carousel img {
   min-width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+  border-radius: 50%;
 }
 
 .carousel-btn {
@@ -997,6 +980,61 @@ body[data-theme="calm"] .stickers-layer {
   position: relative;
   width: min(90vw, 400px);
   height: auto;
+}
+
+.flowers-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.flower {
+  position: absolute;
+  font-size: 2rem;
+  animation: floatFlower 3s ease-in-out infinite;
+}
+
+.flower-1 {
+  top: -20px;
+  left: -30px;
+  animation-delay: 0s;
+}
+
+.flower-2 {
+  top: -10px;
+  right: -30px;
+  animation-delay: 0.5s;
+}
+
+.flower-3 {
+  bottom: 20px;
+  left: -40px;
+  animation-delay: 1s;
+}
+
+.flower-4 {
+  bottom: 10px;
+  right: -40px;
+  animation-delay: 1.5s;
+}
+
+.flower-5 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+@keyframes floatFlower {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(5deg);
+  }
 }
 
 .cake-img {

@@ -266,6 +266,7 @@ function initMusic() {
 
 
 let currentSlide = 0;
+let autoSlideInterval;
 
 function initGallery() {
   if (!gallery || PHOTO_FILES.length === 0) return;
@@ -292,6 +293,17 @@ function initGallery() {
   // Add button listeners
   document.getElementById("carouselPrev").addEventListener("click", prevSlide);
   document.getElementById("carouselNext").addEventListener("click", nextSlide);
+
+  // Start auto-slide
+  startAutoSlide();
+}
+
+function startAutoSlide() {
+  autoSlideInterval = setInterval(nextSlide, 3000); // Change slide every 3 seconds
+}
+
+function stopAutoSlide() {
+  clearInterval(autoSlideInterval);
 }
 
 function updateCarousel() {
@@ -304,18 +316,24 @@ function updateCarousel() {
 }
 
 function nextSlide() {
+  stopAutoSlide();
   currentSlide = (currentSlide + 1) % PHOTO_FILES.length;
   updateCarousel();
+  startAutoSlide();
 }
 
 function prevSlide() {
+  stopAutoSlide();
   currentSlide = (currentSlide - 1 + PHOTO_FILES.length) % PHOTO_FILES.length;
   updateCarousel();
+  startAutoSlide();
 }
 
 function goToSlide(index) {
+  stopAutoSlide();
   currentSlide = index;
   updateCarousel();
+  startAutoSlide();
 }
 
 
@@ -480,10 +498,14 @@ function initCandles() {
 function cutCake() {
   const cutBtn = document.getElementById("cut-cake");
   const toLetterBtn = document.getElementById("to-letter");
+  const bigFlower = document.querySelector(".flower-5");
 
   if (cutBtn) {
     cutBtn.style.display = "none";
     launchConfetti();
+    if (bigFlower) {
+      bigFlower.style.opacity = "1";
+    }
     setTimeout(() => {
       if (toLetterBtn) toLetterBtn.style.display = "inline-block";
     }, 1000);
@@ -533,7 +555,6 @@ function initNavigation() {
 }
 
 setTheme("calm");
-checkIntroBackground();
 applyIntro();
 initMusic();
 initGallery();
