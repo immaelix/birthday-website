@@ -269,75 +269,127 @@ function initMusic() {
 
 
 
-let currentSlide = 0;
-let autoSlideInterval;
+let currentIndex = 0;
+let startX = 0;
+let isDragging = false;
+let autoRotateInterval;
+const carousel = document.getElementById("gallery");
 
 function initGallery() {
-  if (!gallery || PHOTO_FILES.length === 0) return;
+  if (!carousel || PHOTO_FILES.length === 0) return;
 
-  // Add images to carousel
+  // Add images to 3D carousel
   PHOTO_FILES.forEach((name, i) => {
     const img = document.createElement("img");
     img.src = `assets/images/${name}`;
     img.alt = `Memory ${i + 1}`;
     img.loading = i < 4 ? "eager" : "lazy";
-    gallery.appendChild(img);
+    carousel.appendChild(img);
   });
 
-  // Add dots
-  const dotsContainer = document.getElementById("carouselDots");
-  PHOTO_FILES.forEach((_, i) => {
-    const dot = document.createElement("div");
-    dot.className = "carousel-dot";
-    if (i === 0) dot.classList.add("active");
-    dot.addEventListener("click", () => goToSlide(i));
-    dotsContainer.appendChild(dot);
+  // Position images in 3D circle
+  update3DCarousel();
+
+  // Add touch/swipe support
+  carousel.addEventListener("touchstart", handleTouchStart, false);
+  carousel.addEventListener("touchmove", handleTouchMove, false);
+  carousel.addEventListener("touchend", handleTouchEnd, false);
+
+  // Add mouse drag support
+  carousel.addEventListener("mousedown", handleMouseDown, false);
+  carousel.addEventListener("mousemove", handleMouseMove, false);
+  carousel.addEventListener("mouseup", handleMouseUp, false);
+  carousel.addEventListener("mouseleave", handleMouseUp, false);
+
+  // Start auto-rotate
+  startAutoRotate();
+}
+
+function update3DCarousel() {
+  const images = carousel.querySelectorAll("img");
+  const angleStep = 360 / images.length;
+
+  images.forEach((img, i) => {
+    const angle = (i - currentIndex) * angleStep;
+    const radius = 300; // Distance from center
+
+    img.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+    img.style.opacity = Math.abs(angle) < 90 ? 1 : 0.3;
+    img.style.zIndex = Math.abs(angle) < 90 ? 10 : 1;
   });
 
-  // Add button listeners
-  document.getElementById("carouselPrev").addEventListener("click", prevSlide);
-  document.getElementById("carouselNext").addEventListener("click", nextSlide);
-
-  // Start auto-slide
-  startAutoSlide();
+  carousel.style.transform = `rotateY(${currentIndex * -angleStep}deg)`;
 }
 
-function startAutoSlide() {
-  autoSlideInterval = setInterval(nextSlide, 3000); // Change slide every 3 seconds
+function startAutoRotate() {
+  autoRotateInterval = setInterval(() => {
+    currentIndex = (currentIndex + 1) % PHOTO_FILES.length;
+    update3DCarousel();
+  }, 3000);
 }
 
-function stopAutoSlide() {
-  clearInterval(autoSlideInterval);
+function stopAutoRotate() {
+  clearInterval(autoRotateInterval);
 }
 
-function updateCarousel() {
-  const galleryEl = document.getElementById("gallery");
-  const dots = document.querySelectorAll(".carousel-dot");
-  galleryEl.style.transform = `translateX(-${currentSlide * 100}%)`;
-  dots.forEach((dot, i) => {
-    dot.classList.toggle("active", i === currentSlide);
-  });
+function handleTouchStart(e) {
+  startX = e.touches[0].clientX;
+  isDragging = true;
+  stopAutoRotate();
 }
 
-function nextSlide() {
-  stopAutoSlide();
-  currentSlide = (currentSlide + 1) % PHOTO_FILES.length;
-  updateCarousel();
-  startAutoSlide();
+function handleTouchMove(e) {
+  if (!isDragging) return;
+  e.preventDefault();
 }
 
-function prevSlide() {
-  stopAutoSlide();
-  currentSlide = (currentSlide - 1 + PHOTO_FILES.length) % PHOTO_FILES.length;
-  updateCarousel();
-  startAutoSlide();
+function handleTouchEnd(e) {
+  if (!isDragging) return;
+  const endX = e.changedTouches[0].clientX;
+  const diffX = startX - endX;
+
+  if (Math.abs(diffX) > 50) {
+    if (diffX > 0) {
+      // Swipe left - next
+      currentIndex = (currentIndex + 1) % PHOTO_FILES.length;
+    } else {
+      // Swipe right - prev
+      currentIndex = (currentIndex - 1 + PHOTO_FILES.length) % PHOTO_FILES.length;
+    }
+    update3DCarousel();
+  }
+
+  isDragging = false;
+  startAutoRotate();
 }
 
-function goToSlide(index) {
-  stopAutoSlide();
-  currentSlide = index;
-  updateCarousel();
-  startAutoSlide();
+function handleMouseDown(e) {
+  startX = e.clientX;
+  isDragging = true;
+  stopAutoRotate();
+}
+
+function handleMouseMove(e) {
+  if (!isDragging) return;
+  e.preventDefault();
+}
+
+function handleMouseUp(e) {
+  if (!isDragging) return;
+  const endX = e.clientX;
+  const diffX = startX - endX;
+
+  if (Math.abs(diffX) > 50) {
+    if (diffX > 0) {
+      currentIndex = (currentIndex + 1) % PHOTO_FILES.length;
+    } else {
+      currentIndex = (currentIndex - 1 + PHOTO_FILES.length) % PHOTO_FILES.length;
+    }
+    update3DCarousel();
+  }
+
+  isDragging = false;
+  startAutoRotate();
 }
 
 
