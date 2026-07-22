@@ -18,7 +18,6 @@ const PHOTO_FILES = [
   "1968495937213137.jpg",
   "Screenshot_20251127_163725_com.roblox.client.jpg",
   "Snapchat-1414954007.jpg",
-  "WhatsApp Image 2026-07-20 at 6.50.58 PM.jpeg",
 ];
 
 
@@ -311,11 +310,14 @@ function update3DCarousel() {
 
   images.forEach((img, i) => {
     const angle = (i - currentIndex) * angleStep;
-    const radius = 300; // Distance from center
+    const radius = 350; // Distance from center
+    const normalizedAngle = Math.abs(((angle + 180) % 360) - 180); // Normalize to 0-180
+    const opacity = 1 - (normalizedAngle / 180) * 0.5; // Opacity from 1 to 0.5
+    const scale = 1 - (normalizedAngle / 180) * 0.3; // Scale from 1 to 0.7
 
-    img.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
-    img.style.opacity = Math.abs(angle) < 90 ? 1 : 0.3;
-    img.style.zIndex = Math.abs(angle) < 90 ? 10 : 1;
+    img.style.transform = `rotateY(${angle}deg) translateZ(${radius}px) scale(${scale})`;
+    img.style.opacity = opacity;
+    img.style.zIndex = 10 - Math.round(normalizedAngle / 20); // Z-index based on angle
   });
 
   carousel.style.transform = `rotateY(${currentIndex * -angleStep}deg)`;

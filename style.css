@@ -832,7 +832,7 @@ body[data-theme="spicy"] .btn-continue {
   display: flex;
   justify-content: center;
   align-items: center;
-  perspective: 1200px;
+  perspective: 1500px;
   margin: 2rem 0;
   overflow: hidden;
 }
@@ -842,7 +842,7 @@ body[data-theme="spicy"] .btn-continue {
   width: 220px;
   height: 220px;
   transform-style: preserve-3d;
-  transition: transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .carousel-3d img {
