@@ -537,12 +537,38 @@ function launchConfetti() {
 function initCandles() {
   const candles = document.querySelectorAll(".candle");
   const cutBtn = document.getElementById("cut-cake");
+  let holdTimer = null;
   
   candles.forEach(candle => {
+    // Start holding
+    const startHold = () => {
+      holdTimer = setTimeout(() => {
+        candle.dataset.lit = "true";
+      }, 500); // Hold for 0.5 seconds to light
+    };
+    
+    // Stop holding
+    const stopHold = () => {
+      clearTimeout(holdTimer);
+    };
+    
+    // Click to blow out
     candle.addEventListener("click", () => {
-      candle.dataset.lit = "false";
-      checkAllCandlesBlown();
+      if (candle.dataset.lit === "true") {
+        candle.dataset.lit = "false";
+        checkAllCandlesBlown();
+      }
     });
+    
+    // Touch events
+    candle.addEventListener("touchstart", startHold);
+    candle.addEventListener("touchend", stopHold);
+    candle.addEventListener("touchcancel", stopHold);
+    
+    // Mouse events
+    candle.addEventListener("mousedown", startHold);
+    candle.addEventListener("mouseup", stopHold);
+    candle.addEventListener("mouseleave", stopHold);
   });
   
   function checkAllCandlesBlown() {
